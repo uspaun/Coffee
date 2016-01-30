@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.uspaun.coffee.StatisticsActivity">
+    <item android:id="@+id/action_truncate_report" android:title="@string/action_truncate_report"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_upload_report" android:title="@string/action_upl_rep"
+        android:orderInCategory="100" app:showAsAction="never" />
+</menu>

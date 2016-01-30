@@ -1,0 +1,11 @@
+<resources>
+    <string name="title_activity_settings">Налаштування</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Головні</string>
+
+    <string name="pref_title_display_name">Відсоток зарплати</string>
+    <string name="pref_default_display_name">15</string>
+</resources>

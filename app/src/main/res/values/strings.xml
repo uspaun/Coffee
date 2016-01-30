@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Coffee</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Налаштування</string>
+    <string name="action_add_goods">Відіслати звіт</string>
+    <string name="action_show_report">Звіт</string>
+    <string name="action_change_report">Інший звіт</string>
+    <string name="action_truncate_report">Стерти продані</string>
+    <string name="action_sell_goods">Продати</string>
+    <string name="action_login">Адміністрування</string>
+    <string name="action_upl_rep">Відіслати звіт</string>
+    <string name="action_send_report">Відіслати звіт</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_example">Example action</string>
+    <string name="title_activity_add_goods">Додати/змінити товар</string>
+    <string name="title_activity_report">Звіт</string>
+    <string name="title_activity_progress">ProgressActivity</string>
+    <string name="title_activity_tiles">Налаштувати плитки</string>
+    <string name="title_activity_statistics">Звіт</string>
+    <string name="title_activity_admin">Панель адміністратора</string>
+    <string name="title_activity_receipt">Замовлення</string>
+    <string name="title_activity_about">Про автора</string>
+    <string name="title_activity_login">Вхід</string>
+    <string name="title_activity_downl">downlActivity</string>
+
+</resources>
