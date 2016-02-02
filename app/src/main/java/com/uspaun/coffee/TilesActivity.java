@@ -12,8 +12,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -22,35 +26,55 @@ public class TilesActivity extends ActionBarActivity {
     Goods gdsTiles;
     ArrayAdapter<String> adapterTiles;
     ListView lvGoodsToTiles, lvTiles;
-    Toast toast;
+
+    SimpleAdapter sAdapter;
+    SimpleAdapter sAdapterTiles;
+    ArrayList<Map<String, Object>> data;
+    ArrayList<Map<String, Object>> dataTiles;
+    Map<String, Object> m;
+    final String ATTRIBUTE_NAME_NAME = "name";
+    //final String ATTRIBUTE_NAME_COUNT = "image";
+    String[] from;
+    int[] to;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tiles);
+        lvGoodsToTiles = (ListView)findViewById(R.id.lvToSelect);
+        lvTiles = (ListView) findViewById(R.id.lvSelected);
         gdsTiles = new Goods();
-        viewGoodsTilesSettings();
+        data = new ArrayList<Map<String, Object>>();
+        dataTiles = new ArrayList<Map<String, Object>>();
+        from = new String[]{ ATTRIBUTE_NAME_NAME };
+        to = new int[]{ R.id.goodName };
+        sAdapter = new SimpleAdapter(this, data, R.layout.activity_tile_item, from, to);
+        lvGoodsToTiles.setAdapter(sAdapter);
+        sAdapterTiles = new SimpleAdapter(this, dataTiles, R.layout.activity_tile_item, from, to);
+        lvTiles.setAdapter(sAdapterTiles);
+        viewGoodsTilesSettings(false);
         lvGoodsToTiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 if(lvTiles.getCount() <= 5) {
-                    String TileName = (String) parent.getItemAtPosition(position);
+                    m = data.get(position);
+                    //String TileName = (String) parent.getItemAtPosition(position);
+                    String TileName = (String)m.get(ATTRIBUTE_NAME_NAME);
                     gdsTiles.putTileName(TileName);
-                    viewGoodsTilesSettings();
+                    viewGoodsTilesSettings(true);
                 }
                 else
                 {
-
-                    toast = Toast.makeText(getApplicationContext(),
+                    CoffeeUtils.showToast(getApplicationContext(),
                             "Максимальна кількість плиток - 6!", Toast.LENGTH_SHORT);
-                    toast.show();
                 }
             }
         });
         lvTiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                String TileName = (String)parent.getItemAtPosition(position);
+                m = dataTiles.get(position);
+                String TileName = (String)m.get(ATTRIBUTE_NAME_NAME);
                 deleteTilesAlertDialog(TileName);
             }
         });
@@ -84,7 +108,7 @@ public class TilesActivity extends ActionBarActivity {
         alert.setPositiveButton("Так", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 gdsTiles.deleteTilesByName(Name);
-                viewGoodsTilesSettings();
+                viewGoodsTilesSettings(true);
             }
         });
         alert.setNegativeButton("Ні", new DialogInterface.OnClickListener() {
@@ -96,17 +120,29 @@ public class TilesActivity extends ActionBarActivity {
         alert.show();
     }
 
-    public void viewGoodsTilesSettings()
+    public void viewGoodsTilesSettings(boolean isInitialised)
     {
-        String[] GoodsNamesCounts = gdsTiles.getGoodsNamesArray();
-        lvGoodsToTiles = (ListView) findViewById(R.id.lvToSelect);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, GoodsNamesCounts);
-        lvGoodsToTiles.setAdapter(adapter);
+        if(!isInitialised)
+        {
+            String[] GoodsNamesCounts = gdsTiles.getGoodsNamesArray();
+            //lvGoodsToTiles = (ListView) findViewById(R.id.lvToSelect);
+            for (int i = 0; i < GoodsNamesCounts.length; i++) {
+                m = new HashMap<String, Object>();
+                m.put(ATTRIBUTE_NAME_NAME, GoodsNamesCounts[i]);
+                data.add(m);
+                sAdapter.notifyDataSetChanged();
+            }
+        }
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.activity_tile_item, GoodsNamesCounts);
+        lvGoodsToTiles.setAdapter(adapter);*/
         String[] TilesNamesArray = gdsTiles.getTilesNamesArray();
-        lvTiles = (ListView) findViewById(R.id.lvSelected);
-        adapterTiles = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, TilesNamesArray);
-        lvTiles.setAdapter(adapterTiles);
+        dataTiles.clear();
+        for (int i = 0; i < TilesNamesArray.length; i++) {
+            m = new HashMap<String, Object>();
+            m.put(ATTRIBUTE_NAME_NAME, TilesNamesArray[i]);
+            dataTiles.add(m);
+            sAdapterTiles.notifyDataSetChanged();
+        }
     }
 }

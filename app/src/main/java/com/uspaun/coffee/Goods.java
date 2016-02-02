@@ -357,4 +357,9 @@ public class Goods {
             return false;
         }
     }
+
+    public void changeTileImage(String Name, String ImageSrc)
+    {
+        gdsDB.changeTilePicture(Name, ImageSrc);
+    }
 }

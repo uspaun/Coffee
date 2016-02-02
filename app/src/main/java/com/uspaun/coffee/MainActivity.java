@@ -179,9 +179,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                         addToOrder(GoodsName, Integer.parseInt(CountValue));
                     }
                     else {
-                        toast = Toast.makeText(getApplicationContext(),
+                        CoffeeUtils.showToast(getApplicationContext(),
                                 "Кількість товару не введена!", Toast.LENGTH_SHORT);
-                        toast.show();
                     }
                 }
             });
@@ -194,9 +193,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             alert.show();
         }
         else {
-            toast = Toast.makeText(getApplicationContext(),
+            CoffeeUtils.showToast(getApplicationContext(),
                     "Товару немає в наявності!", Toast.LENGTH_SHORT);
-            toast.show();
         }
     }
 
@@ -236,15 +234,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             if(!strGDName.equalsIgnoreCase("Немає в наявності!"))
                 sellGoodsFromAlertDialog(strGDName);
             else{
-                toast = Toast.makeText(getApplicationContext(),
+                CoffeeUtils.showToast(getApplicationContext(),
                         "Товару немає в наявності!", Toast.LENGTH_SHORT);
-                toast.show();
             }
         }
         else{
-            toast = Toast.makeText(getApplicationContext(),
+            CoffeeUtils.showToast(getApplicationContext(),
                     "Штрихкод не розпізнано!", Toast.LENGTH_SHORT);
-            toast.show();
         }
     }
     public void onScanClick(View v)

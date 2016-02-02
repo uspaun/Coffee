@@ -32,6 +32,7 @@ public class GoodsDB {
         public static final String ORIGINAL_PRICE_COLUMN = "original_price";
         public static final String CHANGED_COLUMN = "changed";
         public static final String DATETIME_COLUMN = "date";
+        public static final String IMAGE_COLUMN = "image";
 
         private static final String DATABASE_CREATE_SCRIPT = "create table "
                 + DATABASE_TABLE + " (" + BaseColumns._ID
@@ -48,7 +49,7 @@ public class GoodsDB {
         private static final String DATABASE_TILES_CREATE_SCRIPT = "create table "
                 + DATABASE_TABLE_TILES + " (" + BaseColumns._ID
                 + " integer primary key autoincrement, " + GOODS_NAME_COLUMN
-                + " text not null);";
+                + " text not null, " + IMAGE_COLUMN + " text null);";
 
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -463,6 +464,13 @@ public class GoodsDB {
     public void deleteTilesByName(String FullName)
     {
         String query = "DELETE FROM tiles WHERE good_name = '" + FullName + "';";
+        mSqLiteDatabase.execSQL(query);
+    }
+
+    public void changeTilePicture(String Name, String ImageSrc)
+    {
+        String query = "UPDATE tiles SET image = '" + ImageSrc + "' WHERE good_name = '"
+                + Name + "';";
         mSqLiteDatabase.execSQL(query);
     }
 
